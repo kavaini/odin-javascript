@@ -4,32 +4,48 @@ function getComputerChoice() {
   return choices[Math.floor(Math.random()) * choices.length];
 }
 
+let computerPoints = 0;
+let playerPoints = 0;
+
+const roundsToWin = 5;
+
 function playRound(computerSelection, playerSelection) {
   console.log({ computerSelection });
   console.log({ playerSelection });
 
   if (playerSelection === "Scissors" && computerSelection === "Rock") {
-    return "You Lose! Rock beats Scissors";
+    gameLog.innerHTML = "You Lose! Rock beats Scissors";
   } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-    return "You Win! Paper beats Rock";
+    gameLog.innerHTML = "You Win! Paper beats Rock";
   } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
-    return "You Lose! Scissors beats Paper";
+    gameLog.innerHTML = "You Lose! Scissors beats Paper";
   } else if (playerSelection === "Rock" && computerSelection === "Paper") {
-    return "You Lose! Paper beats Rock";
+    gameLog.innerHTML = "You Lose! Paper beats Rock";
   } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
-    return "You Win! Rock beats Scissors";
+    gameLog.innerHTML = "You Win! Rock beats Scissors";
   } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
-    return "You Win! Scissors beats Paper";
+    gameLog.innerHTML = "You Win! Scissors beats Paper";
   } else computerSelection === playerSelection;
   {
-    return "It's a draw";
+    gameLog.innerHTML = "It's a draw";
   }
 }
 
-const computerSelection = getComputerChoice();
-console.log(`Computer chose ${computerSelection}`);
+// const options = document.querySelectorAll(".options");
 
-const playerSelection = "Paper";
-console.log(`Player chose ${playerSelection}`);
+// options.forEach((option) => {
+//   option.addEventListener("click", function () {});
+// });
 
-console.log(playRound(playerSelection, computerSelection));
+function checkIfGameIsOver() {
+  console.log("checking the winner");
+  if (playerPoints == 5 || computerPoints == 5) {
+    if (playerPoints > computerPoints) {
+      return console.log("You win!");
+    } else if (playerPoints < computerPoints) {
+      return console.log("You lost :(");
+    } else {
+      return console.log("ongoing game");
+    }
+  }
+}
