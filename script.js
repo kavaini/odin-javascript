@@ -33,7 +33,7 @@ function getComputerChoice() {
 }
 
 function incrementScore(scoreSpan) {
-  scoreSpan.innerText = parseInt(scoreSpan.innerText) + 1;
+  scoreSpan.innerText = parseInt(scoreSpan) + 1;
 }
 
 function addResult(choices, winner) {
@@ -57,6 +57,4 @@ function makeAChoice(selection) {
   if (youWinner) incrementScore(yourScoreSpan);
   if (computerWinner) incrementScore(computerScoreSpan);
 }
-for (let i = 1; i <= 5; i++) {
-  console.log(playRound());
-}
+function gameEnds() {}
