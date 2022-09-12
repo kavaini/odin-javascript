@@ -33,7 +33,7 @@ function getComputerChoice() {
 }
 
 function incrementScore(scoreSpan) {
-  scoreSpan.innerHtml = Number(scoreSpan.innerHtml) + 1;
+  scoreSpan.innerHtml = Number(scoreSpan.innerText) + 1;
 }
 
 function addResult(choices, winner) {
