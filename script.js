@@ -1,7 +1,7 @@
 const choiceButtons = document.querySelectorAll("[data-selection]");
-const finalColumn = document.querySelector("[data-final-column]");
-const yourScoreSpan = document.querySelector("data-score");
-const computerScoreSpan = document.querySelector("data-computer-score");
+const finalColumn = document.getElementById("final-column");
+const yourScoreSpan = document.getElementById("player-score");
+const computerScoreSpan = document.getElementById("computer-score");
 const choices = [
   {
     name: "rock",
