@@ -33,7 +33,7 @@ function getComputerChoice() {
 }
 
 function incrementScore(scoreSpan) {
-  scoreSpan.innerHtml = Number(scoreSpan.innerText) + 1;
+  scoreSpan.innerText = Number(scoreSpan.innerText) + 1;
 }
 
 function addResult(choices, winner) {
@@ -56,9 +56,20 @@ function makeAChoice(selection) {
 
   if (youWinner) incrementScore(yourScoreSpan);
   if (computerWinner) incrementScore(computerScoreSpan);
-}
-function gameEnds() {
-  for (let i = 0; i < 5; i++) {
-    playRound();
+
+  const keepCount = () => {
+    if (
+      (Number(yourScoreSpan.innerText) === 5) |
+      (Number(computerScoreSpan.innerText) === 5)
+    ) {
+      console.log("Game over");
+    }
+  };
+
+  function gameEnds() {
+    for (let i = 0; i < 5; i++) {
+      playRound();
+    }
+    console.log(gameEnds);
   }
 }
