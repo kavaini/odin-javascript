@@ -57,4 +57,8 @@ function makeAChoice(selection) {
   if (youWinner) incrementScore(yourScoreSpan);
   if (computerWinner) incrementScore(computerScoreSpan);
 }
-function gameEnds() {}
+function gameEnds() {
+  for (let i = 0; i < 5; i++) {
+    playRound();
+  }
+}
