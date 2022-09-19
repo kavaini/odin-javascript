@@ -43,3 +43,10 @@ h2 {
   opacity: 1;
   font-size: 2.2rem;
 }
+.reset {
+  margin: auto;
+  display: grid;
+  justify-content: center;
+  background-color: aliceblue;
+  border: 1px solid;
+}
