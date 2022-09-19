@@ -19,8 +19,9 @@ const choices = [
     beats: "paper",
   },
 ];
+
 choiceButtons.forEach((choiceButton) => {
-  choiceButton.addEventListener("click", (e) => {
+  choiceButton.addEventListener("click", () => {
     const choiceName = choiceButton.dataset.selection;
     const choice = choices.find((choice) => choice.name === choiceName);
     makeAChoice(choice);
@@ -56,20 +57,23 @@ function makeAChoice(selection) {
 
   if (youWinner) incrementScore(yourScoreSpan);
   if (computerWinner) incrementScore(computerScoreSpan);
-
-  const keepCount = () => {
-    if (
-      (Number(yourScoreSpan.innerText) === 5) |
-      (Number(computerScoreSpan.innerText) === 5)
-    ) {
-      console.log("Game over");
-    }
-  };
-
-  function gameEnds() {
-    for (let i = 0; i < 5; i++) {
-      playRound();
-    }
-    console.log(gameEnds);
+}
+const keepCount = () => {
+  if (
+    (Number(yourScoreSpan.innerText) === 5) |
+    (Number(computerScoreSpan.innerText) === 5)
+  ) {
+    console.log("Game over");
   }
+};
+
+function gameEnds() {
+  for (let i = 0; i <= 5; i++) {
+    playRound();
+    console.log("Game over");
+  }
+}
+
+function resetGame() {
+  document.querySelectorAll("[data-selection]").reset();
 }
