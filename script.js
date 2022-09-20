@@ -1,8 +1,9 @@
-const choiceButtons = document.querySelectorAll("[data-selection]");
-const finalColumn = document.getElementById("final-column");
-const yourScoreSpan = document.getElementById("player-score");
-const computerScoreSpan = document.getElementById("computer-score");
-const choices = [
+const gameOptions = document.querySelectorAll("[data-selection]");
+const computerScoreDiv = document.getElementById("final-column");
+const humanScore = document.getElementById("player-score");
+const computerScore = document.getElementById("computer-score");
+const resetButton = document.querySelector(".reset");
+const possibleGameOptions = [
   {
     name: "rock",
     emoji: "✊",
@@ -20,60 +21,71 @@ const choices = [
   },
 ];
 
-choiceButtons.forEach((choiceButton) => {
-  choiceButton.addEventListener("click", () => {
-    const choiceName = choiceButton.dataset.selection;
-    const choice = choices.find((choice) => choice.name === choiceName);
-    makeAChoice(choice);
+gameOptions.forEach((option) => {
+  option.addEventListener("click", () => {
+    const playerSelectedGameOption = option.dataset.selection;
+    const choice = possibleGameOptions.find(
+      (possibleOption) => possibleOption.name === playerSelectedGameOption
+    );
+
+    calculateWinnerAndAddScore(choice);
   });
 });
 
-function getComputerChoice() {
-  const randomIndex = Math.floor(Math.random() * choices.length);
-  return choices[randomIndex];
+function calculateWinnerAndAddScore(humanOption) {
+  const computerOption = getComputerPlayHand();
+  const isHumanWinner = isWinner(humanOption, computerOption);
+  const isComputerWinner = isWinner(computerOption, humanOption);
+
+  addScore(computerOption, isComputerWinner);
+  addScore(humanOption, isHumanWinner);
+
+  if (isHumanWinner) incrementScore(humanScore);
+  if (isComputerWinner) incrementScore(computerScore);
+  keepCount();
 }
 
+function isWinner(optionOne, optionTwo) {
+  return optionOne.beats === optionTwo.name;
+}
 function incrementScore(scoreSpan) {
   scoreSpan.innerText = Number(scoreSpan.innerText) + 1;
 }
 
-function addResult(choices, winner) {
+function getComputerPlayHand() {
+  const idx = Math.floor(Math.random() * possibleGameOptions.length);
+
+  return possibleGameOptions[idx];
+}
+
+function addScore(playerSelectedOption, winner) {
   const div = document.createElement("div");
-  div.innerText = choices.emoji;
+
+  div.innerText = playerSelectedOption.emoji;
   div.classList.add("result-selection");
-  if (winner) div.classList.add("winner");
-  finalColumn.after(div);
-}
-function playRound(computerChoice, playerChoice) {
-  return playerChoice.beats === computerChoice.name;
-}
-function makeAChoice(selection) {
-  const computerChoice = getComputerChoice();
-  const youWinner = playRound(selection, computerChoice);
-  const computerWinner = playRound(computerChoice, selection);
 
-  addResult(computerChoice, computerWinner);
-  addResult(selection, youWinner);
+  if (winner) {
+    div.classList.add("winner");
+  }
 
-  if (youWinner) incrementScore(yourScoreSpan);
-  if (computerWinner) incrementScore(computerScoreSpan);
+  computerScoreDiv.after(div);
 }
+
 const keepCount = () => {
   if (
-    (Number(yourScoreSpan.innerText) === 5) |
-    (Number(computerScoreSpan.innerText) === 5)
+    (Number(humanScore.innerText) === 5) |
+    (Number(computerScore.innerText) === 5)
   ) {
+    resetGame();
     console.log("Game over");
   }
 };
 
-function gameEnds() {
-  for (let i = 0; i <= 5; i++) {
-    playRound();
-    console.log("Game over");
-  }
-}
+resetButton.addEventListener("click", () => {
+  resetGame();
+});
 
 function resetGame() {
-  document.querySelectorAll("[data-selection]").reset();
+  humanScore.innerText = 0;
+  computerScore.innerText = 0;
 }
